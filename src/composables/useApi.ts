@@ -122,7 +122,7 @@ function apiFactory(baseUrl: string) {
 }
 
 const baseApiUrl = import.meta.env.VITE_SALES_API_URL;
-export const useSalesApi = apiFactory(baseApiUrl);
+export const useCoreApi = apiFactory(baseApiUrl);
 
 export interface Post {
   userId: number;
@@ -132,5 +132,5 @@ export interface Post {
 }
 
 export function useGetPosts(options?: ApiOptions) {
-  return useSalesApi<Post[]>("/posts", "GET", options);
+  return useCoreApi<Post[]>("/posts", "GET", options);
 }

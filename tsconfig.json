@@ -8,6 +8,9 @@
     "isolatedModules": true,
     "noEmit": true,
 
+    /* 🌟 ADD THIS LINE TO FIX THE ICON PATH ERROR 🌟 */
+    "types": ["unplugin-icons/types/vue"],
+
     /* Keep your remaining config below */
     "paths": {
       "@/*": ["./src/*"]

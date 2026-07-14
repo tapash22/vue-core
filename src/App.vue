@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { onMounted, watch } from "vue";
+// import IconHome from "~icons/mdi/home";
+// import IconS from "~icons/mdi/setting-outlined"
+import IconSettingsFilled from "~icons/mdi/settings";
 import { useSalesStore } from "./stores/salesStore";
 
 const store = useSalesStore();
@@ -26,6 +29,8 @@ onMounted(() => {
     <v-app-bar color="primary" elevation="2">
       <v-app-bar-title class="font-weight-bold">
         Anwar Sales Log Feed (JSONPlaceholder Engine)
+        <IconSettingsFilled class="nav-icon" />
+        <IconS class="nav-icon" />
       </v-app-bar-title>
     </v-app-bar>
 
@@ -134,3 +139,11 @@ onMounted(() => {
     </v-main>
   </v-app>
 </template>
+
+<style>
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  color: #666;
+}
+</style>
