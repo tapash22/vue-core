@@ -12,12 +12,8 @@ export type ApiOptions = UseAxiosOptions;
 const host = import.meta.env.VITE_BACKEND_URL;
 const loginUrl = "/authenticate";
 
-// One shared token watcher at module scope avoids duplicating listeners inside interceptors
 const token = useLocalStorage("token", "");
 
-/**
- * Standard API hook targeting the base backend URL.
- */
 export function useApi<T>(
   url: string,
   method: ApiMethod,
@@ -40,10 +36,6 @@ export function useApi<T>(
   );
 }
 
-/**
- * Factory function to create custom Axios instances preconfigured with
- * local storage token authentication, explicit request headers, and ETag caching logic.
- */
 function apiFactory(baseUrl: string) {
   return function <T>(
     url: string,
@@ -57,12 +49,10 @@ function apiFactory(baseUrl: string) {
       baseURL: baseUrl,
     });
 
-    // --- REQUEST INTERCEPTOR ---
     axiosApiInstance.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
         config.headers = config.headers || {};
 
-        // Keep Authorization token synchronized dynamically
         if (token.value && url !== loginUrl) {
           config.headers.Authorization = `Bearer ${token.value}`;
         }
@@ -72,7 +62,6 @@ function apiFactory(baseUrl: string) {
         if (uri) config.headers["uri"] = uri;
         if (Orgid) config.headers["Orgid"] = String(Orgid);
 
-        // ETAG REQUEST LOGIC: Attach client cache signature for GET requests
         if (config.method?.toLowerCase() === "get") {
           const cacheKey = `etag_${config.baseURL}${config.url}`;
           const cachedEtag = localStorage.getItem(cacheKey);
@@ -87,10 +76,8 @@ function apiFactory(baseUrl: string) {
       (error) => Promise.reject(error),
     );
 
-    // --- RESPONSE INTERCEPTOR ---
     axiosApiInstance.interceptors.response.use(
       (response: AxiosResponse) => {
-        // ETAG RESPONSE LOGIC: Save ETag header signature and data payload
         if (response.config.method?.toLowerCase() === "get") {
           const headers = response.headers;
           const etag = headers["etag"] || headers["ETag"] || headers["Etag"];
@@ -106,7 +93,6 @@ function apiFactory(baseUrl: string) {
         return response;
       },
       (error) => {
-        // ETAG ERROR LOGIC: Intercept HTTP 304 (Not Modified) and serve cached content
         if (
           error.response &&
           error.response.status === 304 &&
@@ -127,25 +113,21 @@ function apiFactory(baseUrl: string) {
       },
     );
 
-    // VueUse's useAxios signature requires custom instances as the 3rd argument parameter context
-    return useAxios<T>(url, { method, onUploadProgress }, axiosApiInstance, {
-      immediate: false,
-      ...options,
-    });
+    return useAxios<T>(
+      url,
+      { method, onUploadProgress },
+      axiosApiInstance,
+      { immediate: false, abortPrevious: false, ...options }, // 🚀 Applied baseline safety parameter fix here
+    );
   };
 }
-
-// --- INSTANTIATED API CLIENT HOOKS ---
 
 const baseApiUrl = import.meta.env.VITE_SALES_API_URL;
 export const useBaseApi = apiFactory(baseApiUrl);
 
 const salesApiUrl = import.meta.env.VITE_SALES_API_URL;
-export const useSalesApi = apiFactory(salesApiUrl);
-
-// =========================================================================
-// --- ADDED: JSONPLACEHOLDER TYPE DEFINITION & COMPOSABLE HOOK ---
-// =========================================================================
+// export const useSalesApi = apiFactory(salesApiUrl);
+export const useSalesApi = apiFactory("https://jsonplaceholder.typicode.com");
 
 export interface Post {
   userId: number;
@@ -154,10 +136,6 @@ export interface Post {
   body: string;
 }
 
-/**
- * Dedicated composable to query JSON data streams matching your flat Post format structure.
- * Inherits full custom token headers and ETag cache handlers automatically.
- */
 export function useGetPosts(options?: ApiOptions) {
   return useSalesApi<Post[]>("/posts", "GET", options);
 }

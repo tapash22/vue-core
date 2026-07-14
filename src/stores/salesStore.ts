@@ -1,28 +1,45 @@
-import { useGetPosts } from "@/composables/useApi";
+import { useGetPosts, type Post } from "@/composables/useApi";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 
 export const useSalesStore = defineStore("salesStore", () => {
   const selectedRegion = ref<string>("Dhaka");
-  const useMockData = ref<boolean>(true);
+  const useMockData = ref<boolean>(false);
 
-  // Initialize your core composable hook inside the store state zone
+  // Initialize your core hook
   const postsHook = useGetPosts();
 
-  // Action: This returns the axios promise cleanly
-  function loadDashboardMetrics() {
-    // If the mock switch is true, override the URL destination path
-    if (useMockData.value) {
-      return postsHook.execute("/mock/posts-fallback.json");
+  async function loadDashboardMetrics() {
+    try {
+      // Bypasses local paths to ensure it always hits the direct endpoint
+      if (useMockData.value) {
+        await postsHook.execute("https://jsonplaceholder.typicode.com/posts");
+      } else {
+        await postsHook.execute("/posts");
+      }
+    } catch (err) {
+      console.error("Dashboard synchronization caught error:", err);
     }
-
-    // Otherwise, hit the default flat json stream endpoint path
-    return postsHook.execute("/posts");
   }
 
-  // Getters / Mapped States (Must match exactly what the component template reads!)
-  const postsData = computed(() => postsHook.data.value || []);
-  const isDashboardLoading = computed(() => postsHook.isLoading.value);
+  // --- SAFE PARSING GETTER ---
+  const postsData = computed<Post[]>(() => {
+    const val = postsHook.data.value;
+
+    // Safely verify if it's an array. If Vite returns HTML text, this blocks it.
+    if (Array.isArray(val)) {
+      return val;
+    }
+
+    // If it's a string containing HTML, it returns empty until the real data arrives
+    if (typeof val === "string" && val.includes("<!DOCTYPE html>")) {
+      return [];
+    }
+
+    return [];
+  });
+
+  const isDashboardLoading = computed(() => !!postsHook.isLoading.value);
   const dashboardError = computed(() => postsHook.error.value);
 
   return {

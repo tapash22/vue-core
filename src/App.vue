@@ -4,19 +4,20 @@ import { useSalesStore } from "./stores/salesStore";
 
 const store = useSalesStore();
 
-// Watch configuration controls filter streams safely
+// Watch filters safely
 watch(
   () => [store.selectedRegion, store.useMockData],
   () => {
     store.loadDashboardMetrics();
   },
-  { immediate: false },
+  { immediate: false }, // Ensures it doesn't run automatically on load
 );
 
-onMounted(async () => {
-  console.log("Requesting data target...");
-  await store.loadDashboardMetrics();
-  console.log("Synchronized Data array payload:", store.postsData);
+onMounted(() => {
+  // If the watcher or immediate flag fired already, this safe check ensures data exists
+  if (!store.postsData.length && !store.isDashboardLoading) {
+    store.loadDashboardMetrics();
+  }
 });
 </script>
 
@@ -58,7 +59,6 @@ onMounted(async () => {
               </v-card-text>
             </v-card>
           </v-col>
-
           <v-col cols="12" md="8">
             <v-card class="pa-4" elevation="1">
               <v-card-item title="Live Active Sales Announcements" />
@@ -77,13 +77,12 @@ onMounted(async () => {
                     store.postsData.length &&
                     !store.isDashboardLoading
                   "
-                  lines="three"
                   class="pa-0"
                 >
                   <v-list-item
                     v-for="post in store.postsData"
                     :key="post.id"
-                    class="border-b py-4"
+                    class="border-b py-3"
                   >
                     <template #prepend>
                       <v-avatar
@@ -97,30 +96,18 @@ onMounted(async () => {
                       </v-avatar>
                     </template>
 
-                    <template #title>
-                      <div
-                        class="font-weight-bold text-subtitle-1 text-primary mb-1 text-truncate"
-                      >
-                        {{ post.title }}
-                      </div>
-                    </template>
+                    <v-list-item-title
+                      class="font-weight-bold text-primary mb-1 text-wrap"
+                    >
+                      {{ post.title }}
+                    </v-list-item-title>
 
-                    <template #subtitle>
-                      <div
-                        class="text-body-2 text-grey-darken-2"
-                        style="
-                          white-space: pre-line;
-                          line-height: 1.5;
-                          max-height: 4.5em;
-                          overflow: hidden;
-                          display: -webkit-box;
-                          -webkit-line-clamp: 3;
-                          -webkit-box-orient: vertical;
-                        "
-                      >
-                        {{ post.body }}
-                      </div>
-                    </template>
+                    <v-list-item-subtitle
+                      class="text-body-2 text-grey-darken-2 text-wrap"
+                      style="white-space: pre-line"
+                    >
+                      {{ post.body }}
+                    </v-list-item-subtitle>
                   </v-list-item>
                 </v-list>
 
