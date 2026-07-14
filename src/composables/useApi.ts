@@ -123,11 +123,7 @@ function apiFactory(baseUrl: string) {
 }
 
 const baseApiUrl = import.meta.env.VITE_SALES_API_URL;
-export const useBaseApi = apiFactory(baseApiUrl);
-
-const salesApiUrl = import.meta.env.VITE_SALES_API_URL;
-// export const useSalesApi = apiFactory(salesApiUrl);
-export const useSalesApi = apiFactory("https://jsonplaceholder.typicode.com");
+export const useSalesApi = apiFactory(baseApiUrl);
 
 export interface Post {
   userId: number;
