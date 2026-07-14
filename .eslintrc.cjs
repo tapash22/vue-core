@@ -9,13 +9,13 @@ module.exports = {
   extends: [
     'plugin:vue/vue3-essential',
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended' // Uses the plugin we just installed
+    'plugin:@typescript-eslint/recommended', // Uses the plugin we just installed
   ],
   parserOptions: {
     ecmaVersion: 'latest',
-    parser: '@typescript-eslint/parser'
-  }
-}
+    parser: '@typescript-eslint/parser',
+  },
+};
 
 // module.exports = {
 //   root: true,
