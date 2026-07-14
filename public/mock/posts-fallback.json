@@ -1,0 +1,20 @@
+[
+    {
+        "userId": 1,
+        "id": 101,
+        "title": "Offline Mock: Anwar Sales Contract Approved",
+        "body": "The structural parameters and delivery logistics for the Dhaka division infrastructure pipeline have been completely verified and signed off by the engineering board."
+    },
+    {
+        "userId": 1,
+        "id": 102,
+        "title": "Offline Mock: Material Supply Chain Update",
+        "body": "Shipments for high-grade reinforcement bars are currently processing ahead of schedule. Expected arrival at the central depot within forty-eight hours."
+    },
+    {
+        "userId": 2,
+        "id": 103,
+        "title": "Offline Mock: Regional Review Meeting Scheduled",
+        "body": "All regional supervisors from Dhaka, Chittagong, and Sylhet sectors are requested to submit their gross validation metrics ahead of Friday's operations briefing."
+    }
+]

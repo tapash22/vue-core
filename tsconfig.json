@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler" /* 👈 Update this line */,
+    "allowImportingTsExtensions": true /* Optional: Required by some bundler environments */,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+
+    /* Keep your remaining config below */
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
