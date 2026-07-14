@@ -6,7 +6,6 @@ import { defineConfig, loadEnv } from "vite"; // 👈 Imported loadEnv
 import vueDevTools from "vite-plugin-vue-devtools";
 import vuetify from "vite-plugin-vuetify";
 
-// https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   // 1. Load env file based on current mode (development/production) in the current directory
   const env = loadEnv(mode, process.cwd(), "");

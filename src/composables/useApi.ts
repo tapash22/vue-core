@@ -113,12 +113,11 @@ function apiFactory(baseUrl: string) {
       },
     );
 
-    return useAxios<T>(
-      url,
-      { method, onUploadProgress },
-      axiosApiInstance,
-      { immediate: false, abortPrevious: false, ...options }, // 🚀 Applied baseline safety parameter fix here
-    );
+    return useAxios<T>(url, { method, onUploadProgress }, axiosApiInstance, {
+      immediate: false,
+      abortPrevious: false,
+      ...options,
+    });
   };
 }
 
