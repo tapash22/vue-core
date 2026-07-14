@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { onMounted, watch } from "vue";
+import { onMounted, watch } from 'vue';
 // import IconHome from "~icons/mdi/home";
 // import IconS from "~icons/mdi/setting-outlined"
-import IconSettingsFilled from "~icons/mdi/settings";
-import { useSalesStore } from "./stores/salesStore";
+import IconSettingsFilled from '~icons/mdi/settings';
+import { useSalesStore } from './stores/salesStore';
 
 const store = useSalesStore();
 
@@ -13,7 +13,7 @@ watch(
   () => {
     store.loadDashboardMetrics();
   },
-  { immediate: false }, // Ensures it doesn't run automatically on load
+  { immediate: false } // Ensures it doesn't run automatically on load
 );
 
 onMounted(() => {
