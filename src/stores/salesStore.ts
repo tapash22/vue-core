@@ -1,9 +1,9 @@
-import { useGetPosts, type Post } from "@/composables/useApi";
-import { defineStore } from "pinia";
-import { computed, ref } from "vue";
+import { useGetPosts, type Post } from '@/composables/useApi';
+import { defineStore } from 'pinia';
+import { computed, ref } from 'vue';
 
-export const useSalesStore = defineStore("salesStore", () => {
-  const selectedRegion = ref<string>("Dhaka");
+export const useSalesStore = defineStore('salesStore', () => {
+  const selectedRegion = ref<string>('Dhaka');
   const useMockData = ref<boolean>(false);
 
   // Initialize your core hook
@@ -13,26 +13,27 @@ export const useSalesStore = defineStore("salesStore", () => {
     try {
       // Bypasses local paths to ensure it always hits the direct endpoint
       if (useMockData.value) {
-        await postsHook.execute("https://jsonplaceholder.typicode.com/posts");
+        await postsHook.execute('https://jsonplaceholder.typicode.com/posts');
       } else {
-        await postsHook.execute("/posts");
+        await postsHook.execute('/posts');
       }
     } catch (err) {
-      console.error("Dashboard synchronization caught error:", err);
+      console.error('Dashboard synchronization caught error:', err);
     }
   }
 
   // --- SAFE PARSING GETTER ---
   const postsData = computed<Post[]>(() => {
-    const val = postsHook.data.value;
+    // Cast to unknown first so TypeScript lets us safely check its type
+    const val = postsHook.data.value as unknown;
 
     // Safely verify if it's an array. If Vite returns HTML text, this blocks it.
     if (Array.isArray(val)) {
-      return val;
+      return val as Post[];
     }
 
-    // If it's a string containing HTML, it returns empty until the real data arrives
-    if (typeof val === "string" && val.includes("<!DOCTYPE html>")) {
+    // Now TypeScript will gladly let you check for strings without complaining about 'never'
+    if (typeof val === 'string' && val.includes('<!DOCTYPE html>')) {
       return [];
     }
 
