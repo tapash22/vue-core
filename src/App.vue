@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { onMounted, watch } from 'vue';
+import IconNight from '~icons/mdi/moon-waning-crescent';
 import IconSettingsFilled from '~icons/mdi/settings';
+import IconSunny from '~icons/mdi/white-balance-sunny';
+import { useAppTheme } from './composables/useAppTheme';
 import { useSalesStore } from './stores/salesStore';
 import { Toast } from './utils/toast';
 
 const store = useSalesStore();
+const { isDark, toggleTheme } = useAppTheme();
 
 const showToast = () => {
   Toast.success('click button and show toster effect');
@@ -36,6 +40,20 @@ onMounted(() => {
         <IconSettingsFilled class="nav-icon" />
         <v-btn size="large" elevation="3" @click="showToast">
           Extra small Button
+        </v-btn>
+
+        <v-btn icon variant="text" @click="toggleTheme">
+          <Transition name="theme-icon" mode="out-in">
+            <component
+              :is="isDark ? IconSunny : IconNight"
+              :key="isDark"
+              class="theme-icon"
+            />
+          </Transition>
+
+          <v-tooltip activator="parent">
+            {{ isDark ? 'Switch to Light' : 'Switch to Dark' }}
+          </v-tooltip>
         </v-btn>
       </v-app-bar-title>
     </v-app-bar>
