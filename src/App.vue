@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { onMounted, watch } from 'vue';
-// import IconHome from "~icons/mdi/home";
-// import IconS from "~icons/mdi/setting-outlined"
 import IconSettingsFilled from '~icons/mdi/settings';
 import { useSalesStore } from './stores/salesStore';
+import { Toast } from './utils/toast';
 
 const store = useSalesStore();
+
+const showToast = () => {
+  Toast.success('click button and show toster effect');
+};
 
 // Watch filters safely
 watch(
@@ -29,8 +32,11 @@ onMounted(() => {
     <v-app-bar color="primary" elevation="2">
       <v-app-bar-title class="font-weight-bold">
         Anwar Sales Log Feed (JSONPlaceholder Engine)
+
         <IconSettingsFilled class="nav-icon" />
-        <IconS class="nav-icon" />
+        <v-btn size="large" elevation="3" @click="showToast">
+          Extra small Button
+        </v-btn>
       </v-app-bar-title>
     </v-app-bar>
 

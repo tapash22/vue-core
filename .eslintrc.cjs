@@ -3,32 +3,15 @@ require('@rushstack/eslint-patch/modern-module-resolution');
 
 module.exports = {
   root: true,
-  env: {
-    node: true,
-  },
   extends: [
     'plugin:vue/vue3-essential',
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended', // Uses the plugin we just installed
+    'plugin:@typescript-eslint/recommended',
   ],
+  parser: 'vue-eslint-parser',
   parserOptions: {
-    ecmaVersion: 'latest',
     parser: '@typescript-eslint/parser',
+    ecmaVersion: 'latest',
+    sourceType: 'module',
   },
 };
-
-// module.exports = {
-//   root: true,
-//   extends: [
-//     'plugin:vue/vue3-essential',
-//     'eslint:recommended',
-//     '@vue/eslint-config-typescript',
-//     '@vue/eslint-config-prettier',
-//   ],
-//   parserOptions: {
-//     ecmaVersion: 'latest',
-//   },
-//   rules: {
-//     // You can add custom rules here if your team needs them
-//   },
-// };
