@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import download from 'downloadjs';
 import { defineAsyncComponent, ref } from 'vue';
-
 import IconEye from '~icons/mdi/eye-off-outline';
-
 import IconFileDownload from '~icons/mdi/file-download';
 
 const AppFilePreviewDialog = defineAsyncComponent(
