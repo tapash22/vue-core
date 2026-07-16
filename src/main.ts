@@ -5,7 +5,7 @@ import { createApp } from 'vue';
 
 import { createPinia } from 'pinia';
 import App from './App.vue';
-import vuetify from './plugins/vuetify';
+import vuetify from './plugins/vuetify/index.ts';
 
 import Vue3Toastify from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';

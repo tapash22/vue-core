@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 import IconSettingsFilled from '~icons/mdi/settings';
-import AppDrawer from './components/layout/AppDrawer.vue';
-import AppHeader from './components/layout/AppHeader.vue';
+import AppMainAppbar from './components/layout/AppMainAppbar.vue';
 import AppMainContainer from './components/layout/AppMainContainer.vue';
+import AppSidebar from './components/layout/AppSidebar.vue';
 import { useSalesStore } from './stores/salesStore';
 
 const store = useSalesStore();
@@ -29,8 +29,8 @@ onMounted(() => {
 <template>
   <v-app>
     <!-- Core Layout UI Elements -->
-    <AppDrawer v-model:drawer="drawer" v-model:rail="rail" />
-    <AppHeader v-model:rail="rail" title="Anwar Sales Log Feed" />
+    <AppSidebar v-model:drawer="drawer" v-model:rail="rail" />
+    <AppMainAppbar v-model:rail="rail" title="Anwar Sales Log Feed" />
 
     <!-- =========================
          Main Content
