@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { TableItem } from '@/types/table.ts';
+import type { AppTableHeader, TableItem } from '@/types/table';
 import { computed, ref } from 'vue';
 import { useDefaults } from 'vuetify';
-import type { VDataTable } from 'vuetify/components';
 import AppTableSearch from '../fields/AppTableSearch.vue';
 import AppHeader from '../headers/AppHeader.vue';
 import AppPagination from '../pagination/AppPagination.vue';
@@ -12,11 +11,11 @@ import AppTableCell from './cells/AppTableCell.vue';
 const props = withDefaults(
   defineProps<{
     title?: string;
-    headers: VDataTable['headers'];
+    headers: AppTableHeader[];
     searchable?: boolean;
     items: TableItem[];
     paginationPageOptions?: number[];
-    switchOptions?: Array<TabOption>;
+    switchOptions?: TabOption[];
     activeTab?: string;
     variant?: 'plain' | 'rounded' | 'inner';
     showSerialNumbers?: boolean;
@@ -37,7 +36,7 @@ const noOfItemsPerPage = defineModel('itemsPerPage', {
 });
 const activeTabOption = defineModel('activeTab', { required: false });
 
-const headersWithNo = computed<VDataTable['headers']>(() => {
+const headersWithNo = computed<AppTableHeader[]>(() => {
   if (props.showSerialNumbers && typeof props.headers === 'object')
     return [
       {

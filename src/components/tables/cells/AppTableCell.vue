@@ -28,6 +28,10 @@ withDefaults(
   }>(),
   {}
 );
+
+function asString(value: unknown): string | undefined {
+  return typeof value === 'string' ? value : undefined;
+}
 </script>
 <template>
   <app-resolve-table-cell :item="item" :value-key="valueKey">
@@ -66,13 +70,13 @@ withDefaults(
       <app-table-cell-file
         v-else-if="context?.type === 'file' && context?.file"
         :file="context?.file(item)"
-        :title="resolveValue"
+        :title="asString(resolveValue)"
       />
       <!-- file link cell -->
       <!-- eslint-disable-next-line vue/require-v-for-key -->
       <app-table-cell-file-link
         v-else-if="context?.type === 'file-link'"
-        :link="resolveValue"
+        :link="asString(resolveValue)"
       />
       <!-- normal cell -->
       <!-- eslint-disable-next-line vue/require-v-for-key -->
