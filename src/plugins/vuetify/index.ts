@@ -8,7 +8,7 @@ import {
 } from './dialogs';
 import { aliases as formAliases, defaults as formDefaults } from './forms';
 import { iconsConfig } from './icons';
-import { aliases as menuAliases, defaults as menuDefaults } from './menu';
+// import { aliases as menuAliases, defaults as menuDefaults } from './menu';
 import { aliases as tableAliases, defaults as tableDefaults } from './table';
 import { appThemes } from './theme';
 import { aliases as btnAliases, defaults as btnDefaults } from './v-button';
@@ -50,7 +50,7 @@ export default createVuetify({
     ...fileInputAliases,
     ...expansionPanelsAliases,
     ...checkboxAliases,
-    ...menuAliases,
+    // ...menuAliases,
     ...tableAliases,
     ...appbarAliases,
     ...formAliases,
@@ -64,7 +64,7 @@ export default createVuetify({
     ...fileInputDefaults,
     ...expansionPanelsDefaults,
     ...checkboxDefaults,
-    ...menuDefaults,
+    // ...menuDefaults,
     ...tableDefaults,
     ...appbarDefaults,
     ...formDefaults,

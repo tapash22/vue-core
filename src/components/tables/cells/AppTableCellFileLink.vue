@@ -2,9 +2,9 @@
 import { useApi } from '@/composables/useApi';
 import download from 'downloadjs';
 import { computed, defineAsyncComponent, ref } from 'vue';
-import IconFileDownload from '~icons/aes-light-files/file-download';
-import IconEye from '~icons/aes-light-security/eye';
-import IconExclamationCircle from '~icons/aes-light-sign-controls/exclamation-circle';
+import IconExclamationCircle from '~icons/mdi/exclamation';
+import IconEye from '~icons/mdi/eye-off-outline';
+import IconFileDownload from '~icons/mdi/file-download';
 
 const AppFilePreviewDialog = defineAsyncComponent(
   () => import('@/components/dialogs/AppFilePreviewDialog.vue')

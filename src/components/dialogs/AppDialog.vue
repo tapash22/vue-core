@@ -2,7 +2,7 @@
 import { defaults as dialogDefaults } from '@/plugins/vuetify/dialogs';
 import { computed } from 'vue';
 import { useDefaults } from 'vuetify';
-import IconTimes from '~icons/aes-light-general/times';
+import IconClose from '~icons/mdi/window-close';
 
 const props = withDefaults(
   defineProps<{
@@ -41,13 +41,13 @@ useDefaults();
     <template #activator="slotProps">
       <slot name="activator" v-bind="slotProps" />
     </template>
-    <v-defaults-provider :defaults="dialogDefaults.AeslDialog.VDialog.VCard">
+    <v-defaults-provider :defaults="dialogDefaults.AppDialog.VDialog.VCard">
       <v-card rounded="xl">
         <v-card-title class="aesl-dialog-header">
           {{ title }}
           <v-spacer />
           <v-btn
-            :icon="IconTimes"
+            :icon="IconClose"
             @click.stop="closeDialog"
             :disabled="disableClose"
           />

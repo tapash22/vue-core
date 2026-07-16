@@ -4,7 +4,7 @@ import { computed, ref } from 'vue';
 
 export const useSalesStore = defineStore('salesStore', () => {
   const selectedRegion = ref<string>('Dhaka');
-  const useMockData = ref<boolean>(false);
+  const useMockData = ref<boolean>(true);
 
   // Initialize your core hook
   const postsHook = useGetPosts();

@@ -1,10 +1,10 @@
-import AeslTable from '@/components/tables/AeslTable.vue';
+import AppTable from '@/components/tables/AppTable.vue';
 
 export const aliases: Record<string, unknown> = {
-  AeslTable: AeslTable,
+  AeslTable: AppTable,
 };
 export const defaults = {
-  AeslTable: {
+  AppTable: {
     VDataTable: {
       hover: true,
       color: 'primary',

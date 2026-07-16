@@ -1,10 +1,10 @@
-import AeslDialog from '@/components/dialogs/AeslDialog.vue';
+import AppDialog from '@/components/dialogs/AppDialog.vue';
 
 export const aliases = {
-  AeslDialog: AeslDialog,
+  AeslDialog: AppDialog,
 };
 export const defaults = {
-  AeslDialog: {
+  AppDialog: {
     VDialog: {
       contained: false,
       maxHeight: '85%',

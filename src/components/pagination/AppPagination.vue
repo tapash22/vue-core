@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useIcons } from '@/composables/icons';
+import IconLeft from '~icons/mdi/chevron-left';
+import IconRight from '~icons/mdi/chevron-right';
 
 const props = withDefaults(
   defineProps<{
@@ -21,8 +22,6 @@ const page = defineModel<number>('page', {
   required: true,
   default: 1,
 });
-
-const { getIcon } = useIcons();
 
 function previousPage() {
   page.value = Math.max(1, page.value - 1);
@@ -71,7 +70,7 @@ function nextPage() {
         :disabled="page === 1"
         color="secondary"
       >
-        <v-icon :icon="getIcon('aesl-angle-left-small')" />
+        <v-icon :icon="IconLeft" />
       </v-btn>
       <v-btn
         size="x-small"
@@ -82,7 +81,7 @@ function nextPage() {
         :disabled="page === pageCount"
         color="secondary"
       >
-        <v-icon :icon="getIcon('aesl-angle-right-small')" />
+        <v-icon :icon="IconRight" />
       </v-btn>
     </span>
   </div>

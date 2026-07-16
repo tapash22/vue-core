@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import download from 'downloadjs';
 import { defineAsyncComponent, ref } from 'vue';
-import IconFileDownload from '~icons/aes-light-files/file-download';
-import IconEye from '~icons/aes-light-security/eye';
+
+import IconEye from '~icons/mdi/eye-off-outline';
+
+import IconFileDownload from '~icons/mdi/file-download';
 
 const AppFilePreviewDialog = defineAsyncComponent(
   () => import('@/components/dialogs/AppFilePreviewDialog.vue')

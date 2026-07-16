@@ -1,10 +1,10 @@
-import AeslForm from '@/components/forms/AeslForm.vue';
+import AppForm from '@/components/forms/AppForm.vue';
 
 export const aliases = {
-  AeslForm: AeslForm,
+  AeslForm: AppForm,
 };
 export const defaults = {
-  AeslForm: {
+  AppForm: {
     VTextField: {
       class: ['mb-4'],
       VLabel: {

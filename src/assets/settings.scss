@@ -1,0 +1,32 @@
+@use 'vuetify/settings' with (
+  $body-font-family: (
+    'Inter',
+    'Roboto',
+    sans-serif,
+  ),
+  $heading-font-family: (
+    'Inter',
+    'Roboto',
+    sans-serif,
+  ),
+
+  // $text-field-details-padding-inline: 0,
+  $button-height: 52px,
+
+  $table-header-height: 50px,
+  $table-header-font-weight: 600,
+  $table-row-height: 63px,
+  $table-row-font-size: 16px,
+  $table-border-color: #dfe3e8,
+  $table-column-padding: 0 30px
+);
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&display=swap');
+
+.v-theme--light .v-table tbody tr:not(:last-child) {
+  border-bottom: none;
+}
+
+.v-theme--light .v-table tbody tr:first-child {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}

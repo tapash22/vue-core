@@ -1,7 +1,7 @@
-import { markRaw } from 'vue';
+// import { markRaw } from 'vue';
 import { VFileInput } from 'vuetify/components';
-import IconFileUpload from '~icons/aes-light-files/file-upload';
-const FileUploadIcon = markRaw(IconFileUpload);
+import IconFileupload from '~icons/mdi/file-upload-outline';
+// const FileUploadIcon = markRaw(IconFileUpload);
 
 export const aliases: Record<string, unknown> = {
   VMultiFileInput: VFileInput,
@@ -12,7 +12,7 @@ const defaultFileInput = {
   slim: true,
   hideDetails: 'auto',
   prependIcon: '',
-  appendInnerIcon: FileUploadIcon,
+  appendInnerIcon: IconFileupload,
 };
 export const defaults = {
   VFileInput: { ...defaultFileInput },

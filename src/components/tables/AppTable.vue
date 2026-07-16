@@ -67,7 +67,7 @@ useDefaults();
     v-model:page="page"
     v-model:items-per-page="noOfItemsPerPage"
     :search="searchText"
-    class="aesl-data-table"
+    class="app-data-table"
     :class="{
       'is-rounded': variant === 'rounded',
       'is-plain': variant === 'plain',
@@ -75,23 +75,29 @@ useDefaults();
     }"
   >
     <template #top>
-      <app-header
-        class="aesl-data-table-header"
-        :class="{ 'pa-5': variant === 'inner', 'pb-4': true }"
-      >
-        <template #title>
-          <app-tabs
-            v-if="switchOptions && switchOptions.length"
-            :options="switchOptions"
-            v-model:active-tab="activeTabOption"
-          />
-          <h2 v-else>{{ title }}</h2>
-        </template>
-        <template #controls>
-          <app-table-search v-if="searchable" v-model:search="searchText" />
-          <slot name="table-controls" />
-        </template>
-      </app-header>
+      <!-- Custom content -->
+      <slot name="top" />
+
+      <!-- Default header -->
+      <slot name="header">
+        <app-header
+          class="app-data-table-header"
+          :class="{ 'pa-5': variant === 'inner', 'pb-4': true }"
+        >
+          <template #title>
+            <app-tabs
+              v-if="switchOptions && switchOptions.length"
+              :options="switchOptions"
+              v-model:active-tab="activeTabOption"
+            />
+            <h2 v-else>{{ title }}</h2>
+          </template>
+          <template #controls>
+            <app-table-search v-if="searchable" v-model:search="searchText" />
+            <slot name="table-controls" />
+          </template>
+        </app-header>
+      </slot>
     </template>
     <!-- modifying the default rendering of a table cell -->
     <template v-if="showSerialNumbers" #[`item.#no`]="{ internalItem }">
@@ -123,6 +129,8 @@ useDefaults();
     </template>
 
     <template #bottom="{ pageCount }">
+      <slot name="bottom-extra" />
+
       <app-pagination
         v-model:page="page"
         v-model:items-per-page="noOfItemsPerPage"
@@ -135,7 +143,7 @@ useDefaults();
 </template>
 
 <style lang="scss">
-.aesl-data-table {
+.app-data-table {
   &.v-table {
     background-color: transparent;
   }
@@ -174,7 +182,7 @@ useDefaults();
     &.v-table {
       border: 1px solid #dfe3e8;
       border-radius: 10px !important;
-      .aesl-data-table-header {
+      .app-data-table-header {
         h2 {
           font-size: 1.2rem;
         }

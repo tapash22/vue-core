@@ -15,7 +15,13 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       vue(),
-      vuetify({ autoImport: true }), // Crucial for automatic Vuetify treeshaking
+      // vuetify({ autoImport: true }), // Crucial for automatic Vuetify treeshaking
+      vuetify({
+        autoImport: true,
+        styles: {
+          configFile: 'src/assets/settings.scss',
+        },
+      }),
       Icons({
         compiler: 'vue3', // Generates Vue 3 components out of icons
         autoInstall: true, // Optional: auto-installs icon sets when you import them

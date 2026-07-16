@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { useIcons } from '@/composables/icons';
+// import { useIcons } from '@/composables/icons';
+// mdi:search
+import IconSearch from '~icons/mdi/search';
 
 const search = defineModel('search', { required: true, default: '' });
 
-const { getIcon } = useIcons();
+// const { getIcon } = useIcons();
 </script>
 <template>
   <div class="aesl-table-search-wrapper">
@@ -11,7 +13,7 @@ const { getIcon } = useIcons();
       v-model="search"
       class="aesl-search"
       label="Search"
-      :prepend-inner-icon="getIcon('aesl-search')"
+      :prepend-inner-icon="IconSearch"
       :clearable="true"
     />
   </div>
