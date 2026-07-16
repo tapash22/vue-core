@@ -1,24 +1,24 @@
-import { useLocalStorage } from "@vueuse/core";
-import { useAxios, type UseAxiosOptions } from "@vueuse/integrations/useAxios";
+import { useLocalStorage } from '@vueuse/core';
+import { useAxios, type UseAxiosOptions } from '@vueuse/integrations/useAxios';
 import axios, {
   type AxiosProgressEvent,
   type AxiosResponse,
   type InternalAxiosRequestConfig,
-} from "axios";
+} from 'axios';
 
-export type ApiMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+export type ApiMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 export type ApiOptions = UseAxiosOptions;
 
 const host = import.meta.env.VITE_BACKEND_URL;
-const loginUrl = "/authenticate";
+const loginUrl = '/authenticate';
 
-const token = useLocalStorage("token", "");
+const token = useLocalStorage('token', '');
 
 export function useApi<T>(
   url: string,
   method: ApiMethod,
   options?: ApiOptions,
-  onUploadProgress?: (event: AxiosProgressEvent) => void,
+  onUploadProgress?: (event: AxiosProgressEvent) => void
 ) {
   return useAxios<T>(
     url,
@@ -32,7 +32,7 @@ export function useApi<T>(
       },
       onUploadProgress,
     },
-    { immediate: false, ...options },
+    { immediate: false, ...options }
   );
 }
 
@@ -43,7 +43,7 @@ function apiFactory(baseUrl: string) {
     options?: ApiOptions,
     uri?: string,
     Orgid?: number,
-    onUploadProgress?: (event: AxiosProgressEvent) => void,
+    onUploadProgress?: (event: AxiosProgressEvent) => void
   ) {
     const axiosApiInstance = axios.create({
       baseURL: baseUrl,
@@ -57,30 +57,30 @@ function apiFactory(baseUrl: string) {
           config.headers.Authorization = `Bearer ${token.value}`;
         }
         if (url === loginUrl) {
-          config.headers["Content-Type"] = "application/x-www-form-urlencoded";
+          config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
         }
-        if (uri) config.headers["uri"] = uri;
-        if (Orgid) config.headers["Orgid"] = String(Orgid);
+        if (uri) config.headers['uri'] = uri;
+        if (Orgid) config.headers['Orgid'] = String(Orgid);
 
-        if (config.method?.toLowerCase() === "get") {
+        if (config.method?.toLowerCase() === 'get') {
           const cacheKey = `etag_${config.baseURL}${config.url}`;
           const cachedEtag = localStorage.getItem(cacheKey);
 
           if (cachedEtag) {
-            config.headers["If-None-Match"] = cachedEtag;
+            config.headers['If-None-Match'] = cachedEtag;
           }
         }
 
         return config;
       },
-      (error) => Promise.reject(error),
+      (error) => Promise.reject(error)
     );
 
     axiosApiInstance.interceptors.response.use(
       (response: AxiosResponse) => {
-        if (response.config.method?.toLowerCase() === "get") {
+        if (response.config.method?.toLowerCase() === 'get') {
           const headers = response.headers;
-          const etag = headers["etag"] || headers["ETag"] || headers["Etag"];
+          const etag = headers['etag'] || headers['ETag'] || headers['Etag'];
 
           if (etag) {
             const cacheKey = `etag_${response.config.baseURL}${response.config.url}`;
@@ -96,7 +96,7 @@ function apiFactory(baseUrl: string) {
         if (
           error.response &&
           error.response.status === 304 &&
-          error.config.method?.toLowerCase() === "get"
+          error.config.method?.toLowerCase() === 'get'
         ) {
           const dataKey = `data_${error.config.baseURL}${error.config.url}`;
           const cachedData = localStorage.getItem(dataKey);
@@ -110,7 +110,7 @@ function apiFactory(baseUrl: string) {
           }
         }
         return Promise.reject(error);
-      },
+      }
     );
 
     return useAxios<T>(url, { method, onUploadProgress }, axiosApiInstance, {
@@ -121,7 +121,7 @@ function apiFactory(baseUrl: string) {
   };
 }
 
-const baseApiUrl = import.meta.env.VITE_SALES_API_URL;
+const baseApiUrl = import.meta.env.VITE_API_URL;
 export const useCoreApi = apiFactory(baseApiUrl);
 
 export interface Post {
@@ -132,5 +132,5 @@ export interface Post {
 }
 
 export function useGetPosts(options?: ApiOptions) {
-  return useCoreApi<Post[]>("/posts", "GET", options);
+  return useCoreApi<Post[]>('/posts', 'GET', options);
 }

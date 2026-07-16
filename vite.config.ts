@@ -7,8 +7,6 @@ import vuetify from 'vite-plugin-vuetify';
 
 export default defineConfig(({ mode }) => {
   // 1. Load env file based on current mode (development/production) in the current directory
-  console.log('✅ Vite config loaded');
-
   const env = loadEnv(mode, process.cwd(), '');
 
   return {
@@ -35,9 +33,7 @@ export default defineConfig(({ mode }) => {
     // 2. Explicitly compile environment variables directly into the client bundle.
     // This forces Vite to expose them, even if normal auto-loading fails.
     define: {
-      'import.meta.env.VITE_SALES_API_URL': JSON.stringify(
-        env.VITE_SALES_API_URL
-      ),
+      'import.meta.env.VITE_API_URL': JSON.stringify(env.VITE_API_URL),
       'import.meta.env.VITE_BACKEND_URL': JSON.stringify(env.VITE_BACKEND_URL),
     },
 
