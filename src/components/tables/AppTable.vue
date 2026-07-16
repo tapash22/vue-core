@@ -145,26 +145,34 @@ useDefaults();
 <style lang="scss">
 .app-data-table {
   &.v-table {
-    background-color: transparent;
+    background: transparent;
   }
+
   .v-table__wrapper {
-    background-color: white;
+    background: rgb(var(--v-theme-tableBg));
+
     thead {
+      background: rgb(var(--v-theme-tableHeader));
+
       th {
         font-size: 16px;
         padding: 10px;
+        color: rgb(var(--v-theme-tableHeaderText));
+        border-color: rgb(var(--v-theme-tableBorder));
       }
     }
   }
+
   .table-pagination {
-    border-top: 2px solid #dfe3e8;
-    background-color: #fff;
+    background: rgb(var(--v-theme-tablePagination));
+    border-top: 2px solid rgb(var(--v-theme-tableBorder));
   }
 
   &.is-rounded {
     .v-table__wrapper {
       border-radius: 25px 25px 0 0;
     }
+
     .table-pagination {
       border-radius: 0 0 25px 25px;
     }
@@ -172,30 +180,30 @@ useDefaults();
 
   &.is-plain {
     .v-table__wrapper {
-      border-radius: 4px 4px 0px 0px;
-      border: 1px solid #dfe3e8;
+      border-radius: 4px 4px 0 0;
+      border: 1px solid rgb(var(--v-theme-tableBorder));
       border-bottom: none;
     }
   }
 
   &.is-inner {
     &.v-table {
-      border: 1px solid #dfe3e8;
+      border: 1px solid rgb(var(--v-theme-tableBorder));
       border-radius: 10px !important;
-      .app-data-table-header {
-        h2 {
-          font-size: 1.2rem;
-        }
+
+      .app-data-table-header h2 {
+        font-size: 1.2rem;
       }
+
       .table-pagination {
         border-radius: 0 0 25px 25px;
       }
+
       .v-table__wrapper {
         border-radius: 0;
-        thead {
-          tr {
-            background-color: #efefef;
-          }
+
+        thead tr {
+          background: rgb(var(--v-theme-tableHeader));
         }
       }
     }
