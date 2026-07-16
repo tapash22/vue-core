@@ -4,11 +4,11 @@ import { useTheme } from 'vuetify';
 export function useAppTheme() {
   const theme = useTheme();
 
-  const isDark = computed(() => theme.global.name.value === 'dark');
+  const isDark = computed(() => theme.global.current.value.dark);
 
-  const toggleTheme = () => {
+  function toggleTheme() {
     theme.global.name.value = isDark.value ? 'light' : 'dark';
-  };
+  }
 
   return {
     isDark,
