@@ -92,25 +92,19 @@ onMounted(() => {
                     class="border-b py-3"
                   >
                     <template #prepend>
-                      <v-avatar
-                        color="primary"
-                        class="mr-4 text-white"
-                        size="40"
-                      >
-                        <span class="text-subtitle-2 font-weight-bold"
-                          >#{{ post.id }}</span
-                        >
+                      <v-avatar class="" size="40">
+                        <span class="text-subtitle-2 font-weight-bold">{{
+                          post.id
+                        }}</span>
                       </v-avatar>
                     </template>
 
-                    <v-list-item-title
-                      class="font-weight-bold text-primary mb-1 text-wrap"
-                    >
+                    <v-list-item-title class="font-weight-bold mb-1 text-wrap">
                       {{ post.title }}
                     </v-list-item-title>
 
                     <v-list-item-subtitle
-                      class="text-body-2 text-grey-darken-2 text-wrap"
+                      class="text-body-2 text-wrap"
                       style="white-space: pre-line"
                     >
                       {{ post.body }}
