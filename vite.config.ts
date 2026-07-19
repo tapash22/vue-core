@@ -1,7 +1,7 @@
 import vue from '@vitejs/plugin-vue';
 import { fileURLToPath, URL } from 'node:url';
 import Icons from 'unplugin-icons/vite';
-import { defineConfig, loadEnv } from 'vite'; // 👈 Imported loadEnv
+import { defineConfig, loadEnv } from 'vite';
 import vueDevTools from 'vite-plugin-vue-devtools';
 import vuetify from 'vite-plugin-vuetify';
 

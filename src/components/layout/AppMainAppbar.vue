@@ -47,23 +47,31 @@ const showToast = () => {
     </v-app-bar-title>
 
     <template #append>
-      <v-btn color="primary" class="mr-2" @click="showToast">
-        Show Toast
-      </v-btn>
+      <div class="d-flex align-middle ga-4">
+        <v-btn
+          color="primary"
+          variant="tonal"
+          size="small"
+          rounded="sm"
+          @click="showToast"
+        >
+          Show Toast
+        </v-btn>
 
-      <v-btn icon variant="text" @click="toggleTheme" class="theme-button">
-        <Transition name="theme-icon" mode="out-in">
-          <component
-            :is="isDark ? IconSunny : IconNight"
-            :key="String(isDark)"
-            class="theme-icon"
-          />
-        </Transition>
+        <v-btn icon variant="text" @click="toggleTheme" class="theme-button">
+          <Transition name="theme-icon" mode="out-in">
+            <component
+              :is="isDark ? IconSunny : IconNight"
+              :key="String(isDark)"
+              class="theme-icon"
+            />
+          </Transition>
 
-        <v-tooltip activator="parent">
-          {{ isDark ? 'Switch to Light' : 'Switch to Dark' }}
-        </v-tooltip>
-      </v-btn>
+          <v-tooltip activator="parent">
+            {{ isDark ? 'Switch to Light' : 'Switch to Dark' }}
+          </v-tooltip>
+        </v-btn>
+      </div>
     </template>
   </v-app-bar>
 </template>

@@ -9,6 +9,7 @@ import vuetify from './plugins/vuetify/index.ts';
 
 import Vue3Toastify from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import router from './router/index.ts';
 
 const app = createApp(App);
 
@@ -22,5 +23,6 @@ app.use(Vue3Toastify, {
 
 app.use(vuetify);
 app.use(VueQueryPlugin);
+app.use(router);
 
 app.mount('#app');
