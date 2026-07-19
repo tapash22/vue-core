@@ -122,15 +122,5 @@ function apiFactory(baseUrl: string) {
 }
 
 const baseApiUrl = import.meta.env.VITE_API_URL;
+console.log('VITE_API_URL:', baseApiUrl);
 export const useCoreApi = apiFactory(baseApiUrl);
-
-export interface Post {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-}
-
-export function useGetPosts(options?: ApiOptions) {
-  return useCoreApi<Post[]>('/posts', 'GET', options);
-}
