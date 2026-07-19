@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { useAppTheme } from '@/composables/useAppTheme';
 import IconMenuBar from '~icons/mdi/menu';
 import IconNight from '~icons/mdi/moon-waning-crescent';
 import IconSunny from '~icons/mdi/white-balance-sunny';
 import IconClose from '~icons/mdi/window-close';
-import { useAppTheme } from '../../composables/useAppTheme';
-import { Toast } from '../../utils/toast';
+import { Toast } from '../utils/toast';
 
 interface Props {
   title?: string;

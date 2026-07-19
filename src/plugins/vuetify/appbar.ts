@@ -1,4 +1,4 @@
-import AppMainAppbar from '@/components/layout/AppMainAppbar.vue';
+import AppMainAppbar from '@/layout/AppMainAppbar.vue';
 
 export const aliases = {
   AppMainAppbar: AppMainAppbar,

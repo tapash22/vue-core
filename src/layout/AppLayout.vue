@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import AppTable from '@/components/tables/AppTable.vue';
 import { useSalesStore } from '@/stores/salesStore';
 import { TableItem } from '@/types/table';
 import { computed, onMounted, ref, watch } from 'vue';
-import AppTable from '../tables/AppTable.vue';
 import AppMainAppbar from './AppMainAppbar.vue';
 import AppMainContainer from './AppMainContainer.vue';
 import AppSidebar from './AppSidebar.vue';
