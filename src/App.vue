@@ -71,7 +71,6 @@ onMounted(() => {
         color="secondary"
         class="mb-4"
       />
-      {{ tableItems }}
       <app-table title="Dashboard" :headers="headers" :items="tableItems">
       </app-table>
     </AppMainContainer>
