@@ -18,6 +18,10 @@ const headers = [
     key: 'id',
   },
   {
+    title: 'user Id',
+    key: 'userId',
+  },
+  {
     title: 'Title',
     key: 'title',
   },
@@ -67,6 +71,7 @@ onMounted(() => {
         color="secondary"
         class="mb-4"
       />
+      {{ tableItems }}
       <app-table title="Dashboard" :headers="headers" :items="tableItems">
       </app-table>
     </AppMainContainer>

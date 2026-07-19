@@ -38,22 +38,7 @@ const activeTabOption = defineModel('activeTab', { required: false });
 
 const headersWithNo = computed<AppTableHeader[]>(() => {
   if (props.showSerialNumbers && typeof props.headers === 'object')
-    return [
-      {
-        title: 'No.',
-        align: 'start',
-        key: '#no',
-        width: '5px',
-        headerProps: {
-          style: 'padding-right: 5px;width:5px;',
-        },
-        cellProps: {
-          style: 'padding-right: 5px;width:5px;',
-        },
-        sortable: false,
-      },
-      ...props.headers,
-    ];
+    return [...props.headers];
   else return props.headers;
 });
 
