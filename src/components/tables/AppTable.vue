@@ -8,12 +8,22 @@ import AppPagination from '../pagination/AppPagination.vue';
 import AppTabs, { type TabOption } from '../tabs/AppTabs.vue';
 import AppTableCell from './cells/AppTableCell.vue';
 
+export interface SelectOption {
+  title: string;
+  value: string | number;
+}
+
 const props = withDefaults(
   defineProps<{
     title?: string;
     headers: AppTableHeader[];
     searchable?: boolean;
     items: TableItem[];
+
+    showSelect?: boolean;
+    selectLabel?: string;
+    selectOptions?: SelectOption[];
+
     paginationPageOptions?: number[];
     switchOptions?: TabOption[];
     activeTab?: string;
@@ -22,13 +32,27 @@ const props = withDefaults(
   }>(),
   {
     searchable: false,
+
+    showSelect: false,
+    selectLabel: 'Select',
+    selectOptions: () => [],
     paginationPageOptions: () => [5, 10, 15, 20],
     variant: 'plain',
     showSerialNumbers: true,
   }
 );
 
-const searchText = ref<string>('');
+// const searchText = ref<string>('');
+// Search model
+const searchText = defineModel<string>('search', {
+  default: '',
+});
+
+// Multi-select filter model
+const selectedOptions = defineModel<(string | number)[]>('selectedOptions', {
+  default: () => [],
+});
+
 const page = ref<number>(1);
 const noOfItemsPerPage = defineModel('itemsPerPage', {
   required: false,
@@ -79,6 +103,22 @@ useDefaults();
           </template>
           <template #controls>
             <app-table-search v-if="searchable" v-model:search="searchText" />
+
+            <v-autocomplete
+              v-if="showSelect"
+              v-model="selectedOptions"
+              :items="selectOptions"
+              :label="selectLabel"
+              multiple
+              chips
+              closable-chips
+              clearable
+              density="compact"
+              variant="outlined"
+              hide-details
+              style="min-width: 260px"
+            />
+
             <slot name="table-controls" />
           </template>
         </app-header>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppTable from '@/components/tables/AppTable.vue';
+import AppTable, { SelectOption } from '@/components/tables/AppTable.vue';
 import { useSalesStore } from '@/stores/salesStore';
 import { TableItem } from '@/types/table';
 import { computed, onMounted, ref, watch } from 'vue';
@@ -31,6 +31,10 @@ const headers = [
   },
 ];
 
+const searchText = ref('');
+
+const selectedOptions = ref<string[]>([]);
+
 watch(
   () => [store.selectedRegion, store.useMockData],
   () => {
@@ -47,6 +51,22 @@ const tableItems = computed<TableItem[]>(() =>
     body: post.body,
   }))
 );
+
+const labels: Record<string, string> = {
+  userId: 'User ID',
+  id: 'Post ID',
+  title: 'Title',
+  body: 'Description',
+};
+
+const selectOptions = computed<SelectOption[]>(() => {
+  if (!tableItems.value.length) return [];
+
+  return Object.keys(tableItems.value[0]).map((key) => ({
+    title: labels[key] ?? key,
+    value: key,
+  }));
+});
 
 onMounted(() => {
   if (!store.postsData.length && !store.isDashboardLoading) {
@@ -75,6 +95,11 @@ onMounted(() => {
       :headers="headers"
       :items="tableItems"
       searchable
+      show-select
+      select-label="Status"
+      :select-options="selectOptions"
+      v-model:search="searchText"
+      v-model:selected-options="selectedOptions"
     >
     </app-table>
   </AppMainContainer>
