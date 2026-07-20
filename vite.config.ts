@@ -31,7 +31,6 @@ export default defineConfig(({ mode }) => {
       },
     },
     // 2. Explicitly compile environment variables directly into the client bundle.
-    // This forces Vite to expose them, even if normal auto-loading fails.
     define: {
       'import.meta.env.VITE_API_URL': JSON.stringify(env.VITE_API_URL),
       'import.meta.env.VITE_BACKEND_URL': JSON.stringify(env.VITE_BACKEND_URL),
