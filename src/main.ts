@@ -10,6 +10,9 @@ import vuetify from './plugins/vuetify/index.ts';
 import Vue3Toastify from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import router from './router/index.ts';
+import { registerChartJS } from './utils/chartRegistry.ts';
+
+registerChartJS();
 
 const app = createApp(App);
 
