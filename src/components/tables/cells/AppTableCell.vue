@@ -39,8 +39,8 @@ function asString(value: unknown): string | undefined {
       <!-- link type cell -->
       <!-- eslint-disable-next-line vue/valid-v-for -->
       <router-link
-        v-if="context?.type === 'link'"
-        :to="context?.to && context?.to(item)"
+        v-if="context?.type === 'link' && context?.to"
+        :to="context.to(item)"
         class="text-subtitle-1 font-weight-medium"
       >
         {{ resolveValue }}
