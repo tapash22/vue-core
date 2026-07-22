@@ -1,10 +1,6 @@
-export interface TableHeader {
-  title: string;
-  key: string;
-}
-export type TableHeaderList = TableHeader[];
+import { AppTableHeader } from '@/types/table';
 
-export const headers: TableHeaderList = [
+export const headers: AppTableHeader[] = [
   {
     title: 'ID',
     key: 'id',
