@@ -1,4 +1,4 @@
-import type { InternalAxiosRequestConfig } from "axios";
+import type { InternalAxiosRequestConfig } from 'axios';
 
 // Extend Axios configuration options to accept custom metadata flags
 export interface CustomRequestConfig extends InternalAxiosRequestConfig {
@@ -11,7 +11,7 @@ export interface CustomRequestConfig extends InternalAxiosRequestConfig {
 }
 
 // Custom structure for standardized backend responses
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   data: T;
   message?: string;
   status: number;
