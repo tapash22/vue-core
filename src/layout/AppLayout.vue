@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AppTable, { SelectOption } from '@/components/tables/AppTable.vue';
+import { headers } from '@/data/index.ts';
 import { useSalesStore } from '@/stores/salesStore';
 import { TableItem } from '@/types/table';
 import { computed, onMounted, ref, watch } from 'vue';
@@ -11,25 +12,6 @@ const store = useSalesStore();
 
 const drawer = ref(true);
 const rail = ref(true);
-
-const headers = [
-  {
-    title: 'ID',
-    key: 'id',
-  },
-  {
-    title: 'user Id',
-    key: 'userId',
-  },
-  {
-    title: 'Title',
-    key: 'title',
-  },
-  {
-    title: 'Body',
-    key: 'body',
-  },
-];
 
 const searchText = ref('');
 
