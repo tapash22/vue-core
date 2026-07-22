@@ -1,0 +1,28 @@
+name: Auto-Create PR to Prod
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Create or Update Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Create PR if it doesn't exist; if it does exist, exit gracefully without failing
+          gh pr create \
+            --base prod \
+            --head main \
+            --title "Release: Sync main into prod" \
+            --body "Automated Pull Request from \`main\` to \`prod\`. Review changes and merge when ready to deploy." || true

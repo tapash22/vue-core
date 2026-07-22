@@ -4,6 +4,7 @@ import axios, {
   type AxiosProgressEvent,
   type AxiosResponse,
   type InternalAxiosRequestConfig,
+  type RawAxiosRequestHeaders,
 } from 'axios';
 
 export type ApiMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
@@ -20,16 +21,18 @@ export function useApi<T>(
   options?: ApiOptions,
   onUploadProgress?: (event: AxiosProgressEvent) => void
 ) {
+  const headers: RawAxiosRequestHeaders = {
+    ...(token.value && url !== loginUrl
+      ? { Authorization: `Bearer ${token.value}` }
+      : {}),
+  };
+
   return useAxios<T>(
     url,
     {
       method,
       baseURL: host,
-      headers: {
-        ...(token.value && url !== loginUrl
-          ? { Authorization: `Bearer ${token.value}` }
-          : {}),
-      },
+      headers,
       onUploadProgress,
     },
     { immediate: false, ...options }
@@ -51,23 +54,29 @@ function apiFactory(baseUrl: string) {
 
     axiosApiInstance.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
-        config.headers = config.headers || {};
-
+        // Axios v1.x uses `config.headers.set()` for safe header mutation
         if (token.value && url !== loginUrl) {
-          config.headers.Authorization = `Bearer ${token.value}`;
+          config.headers.set('Authorization', `Bearer ${token.value}`);
         }
         if (url === loginUrl) {
-          config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+          config.headers.set(
+            'Content-Type',
+            'application/x-www-form-urlencoded'
+          );
         }
-        if (uri) config.headers['uri'] = uri;
-        if (Orgid) config.headers['Orgid'] = String(Orgid);
+        if (uri) {
+          config.headers.set('uri', uri);
+        }
+        if (Orgid) {
+          config.headers.set('Orgid', String(Orgid));
+        }
 
         if (config.method?.toLowerCase() === 'get') {
           const cacheKey = `etag_${config.baseURL}${config.url}`;
           const cachedEtag = localStorage.getItem(cacheKey);
 
           if (cachedEtag) {
-            config.headers['If-None-Match'] = cachedEtag;
+            config.headers.set('If-None-Match', cachedEtag);
           }
         }
 
@@ -86,7 +95,7 @@ function apiFactory(baseUrl: string) {
             const cacheKey = `etag_${response.config.baseURL}${response.config.url}`;
             const dataKey = `data_${response.config.baseURL}${response.config.url}`;
 
-            localStorage.setItem(cacheKey, etag);
+            localStorage.setItem(cacheKey, String(etag));
             localStorage.setItem(dataKey, JSON.stringify(response.data));
           }
         }
