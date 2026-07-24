@@ -394,3 +394,41 @@ svg {
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background: rgb(var(--v-theme-scrollbarThumbHover));
 }
+
+/* make smooth transition */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: .4s;
+  animation-timing-function: linear;
+}
+
+::view-transition-old(root) {
+  animation-name: fade-out;
+}
+
+::view-transition-new(root) {
+  animation-name: fade-in;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* make smooth transition end*/
