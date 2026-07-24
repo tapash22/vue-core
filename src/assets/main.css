@@ -234,14 +234,11 @@ label {
     transform .2s ease;
 }
 
-<<<<<<< HEAD
 .v-btn:hover {
   transform: translateY(-1px);
 }
 
 
-=======
->>>>>>> 7565f22 (implement chart and added appbasechart for use any type of chart)
 .v-field {
   background: rgb(var(--v-theme-input));
   border-radius: 10px;
