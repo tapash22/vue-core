@@ -6,9 +6,11 @@ export function useAppTheme() {
 
   const isDark = computed(() => theme.global.current.value.dark);
 
-  function toggleTheme() {
-    theme.global.name.value = isDark.value ? 'light' : 'dark';
-  }
+  const toggleTheme = () => {
+    requestAnimationFrame(() => {
+      theme.global.name.value = isDark.value ? 'light' : 'dark';
+    });
+  };
 
   return {
     isDark,

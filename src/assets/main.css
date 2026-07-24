@@ -9,6 +9,7 @@
   --transition-normal: .3s cubic-bezier(.4, 0, .2, 1);
   --transition-slow: .35s ease;
   --radius: 12px;
+  --theme-transition: 350ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html,
@@ -19,19 +20,19 @@ body,
   color: rgb(var(--v-theme-text));
 
   transition:
-    background-color var(--transition-slow),
-    color var(--transition-slow);
+    background-color var(--theme-transition),
+    color var(--theme-transition);
 }
 
 .v-theme--light *,
 .v-theme--dark * {
   transition:
-    background-color var(--transition-slow),
-    color var(--transition-slow),
-    border-color var(--transition-slow),
-    box-shadow var(--transition-slow),
-    fill var(--transition-slow),
-    stroke var(--transition-slow);
+    background-color var(--theme-transition),
+    color var(--theme-transition),
+    border-color var(--theme-transition),
+    box-shadow var(--theme-transition),
+    fill var(--theme-transition),
+    stroke var(--theme-transition);
 }
 
 body {
@@ -47,6 +48,18 @@ p,
 span,
 label {
   color: rgb(var(--v-theme-paragraph));
+}
+
+.v-main,
+.v-app-bar,
+.v-navigation-drawer,
+.v-card,
+.v-sheet {
+  transition:
+    background-color .35s ease,
+    color .35s ease,
+    border-color .35s ease,
+    box-shadow .35s ease;
 }
 
 .v-app-bar,
@@ -215,13 +228,30 @@ label {
 
 .v-btn {
   border-radius: 10px;
+  transition:
+    background-color .3s ease,
+    color .3s ease,
+    transform .2s ease;
 }
 
+.v-btn:hover {
+  transform: translateY(-1px);
+}
 
 
 .v-field {
   background: rgb(var(--v-theme-input));
   border-radius: 10px;
+}
+
+
+.v-field,
+.v-text-field,
+.v-select {
+  transition:
+    background-color .35s ease,
+    border-color .35s ease,
+    color .35s ease;
 }
 
 .v-field--focused {
@@ -254,21 +284,23 @@ label {
 
 .theme-icon-enter-active,
 .theme-icon-leave-active {
-  transition:
-    opacity .25s ease,
-    transform .25s ease;
+  transition: all .35s ease;
 }
 
-.theme-icon-enter-from,
+.theme-icon-enter-from {
+  opacity: 0;
+  transform: rotate(-90deg) scale(.6);
+}
+
 .theme-icon-leave-to {
   opacity: 0;
-  transform: translateY(6px);
+  transform: rotate(90deg) scale(.6);
 }
 
 .theme-icon-enter-to,
 .theme-icon-leave-from {
   opacity: 1;
-  transform: translateY(0);
+  transform: rotate(0) scale(1);
 }
 
 .drawer-text-enter-active,
@@ -362,3 +394,41 @@ svg {
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background: rgb(var(--v-theme-scrollbarThumbHover));
 }
+
+/* make smooth transition */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: .4s;
+  animation-timing-function: linear;
+}
+
+::view-transition-old(root) {
+  animation-name: fade-out;
+}
+
+::view-transition-new(root) {
+  animation-name: fade-in;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* make smooth transition end*/
