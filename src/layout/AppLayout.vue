@@ -6,7 +6,7 @@ import { headers } from '@/data/index.ts';
 import { useSalesStore } from '@/stores/salesStore';
 import { TableItem } from '@/types/table';
 import { ChartType } from 'chart.js';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import AppMainAppbar from './AppMainAppbar.vue';
 import AppMainContainer from './AppMainContainer.vue';
 import AppSidebar from './AppSidebar.vue';
@@ -18,6 +18,8 @@ const drawer = ref(true);
 const rail = ref(true);
 
 const searchText = ref('');
+const debouncedSearchText = ref('');
+let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
 const selectedOptions = ref<string[]>([]);
 
@@ -57,6 +59,30 @@ const selectOptions = computed<SelectOption[]>(() => {
     title: labels[key] ?? key,
     value: key,
   }));
+});
+
+// Watch input changes and compare logs
+watch(searchText, (newVal) => {
+  // ⚡ WITHOUT DEBOUNCE: Fires instantly on every keystroke
+  console.log('[WITHOUT DEBOUNCE] Key pressed:', newVal);
+
+  if (debounceTimer) clearTimeout(debounceTimer);
+
+  debounceTimer = setTimeout(() => {
+    debouncedSearchText.value = newVal;
+
+    // ⏱️ WITH DEBOUNCE: Fires only after 300ms of typing inactivity
+    console.log(
+      '%c[WITH DEBOUNCE] Triggered query execution:',
+      'color: #00ff00; font-weight: bold;',
+      newVal
+    );
+  }, 1000); // 300ms delay
+});
+
+// Cleanup timer on unmount to prevent memory leaks
+onUnmounted(() => {
+  if (debounceTimer) clearTimeout(debounceTimer);
 });
 
 onMounted(() => {
