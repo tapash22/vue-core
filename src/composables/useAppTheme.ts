@@ -1,3 +1,4 @@
+// src/composables/useAppTheme.ts
 import { computed } from 'vue';
 import { useTheme } from 'vuetify';
 
