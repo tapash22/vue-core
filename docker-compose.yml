@@ -1,0 +1,16 @@
+services:
+  web-app:
+    build: .
+    image: tapashpaul/vue-core:latest # Replace 'tapashpaul' and 'vue-core' with your actual Docker Hub username & repo name
+    container_name: my-app
+    ports:
+      - '8080:80'
+    restart: always
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    restart: always
+    volumes:
+      - //var/run/docker.sock:/var/run/docker.sock
+    command: --interval 300 --cleanup
