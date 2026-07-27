@@ -2,7 +2,6 @@
 import type { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { ref } from 'vue';
 
-// 1. Pass ChartType as the generic type parameter
 export const activityChartData = ref<ChartData<ChartType>>({
   labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling'],
   datasets: [
@@ -30,7 +29,6 @@ export const activityChartData = ref<ChartData<ChartType>>({
   ],
 });
 
-// 2. Do the same for options
 export const defaultChartOptions: ChartOptions<ChartType> = {
   responsive: true,
   maintainAspectRatio: false,
