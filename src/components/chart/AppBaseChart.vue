@@ -4,11 +4,11 @@ import type { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { computed } from 'vue';
 import { Chart as VueChart } from 'vue-chartjs';
 
-// 1. Define Props with TypeScript Types
+// 1. Define Props with strict ChartType generics
 interface Props {
-  type?: ChartType; // 'bar' | 'line' | 'pie' | 'doughnut' | 'radar' | 'polarArea' | 'bubble' | 'scatter'
-  chartData: unknown;
-  chartOptions?: ChartOptions;
+  type?: ChartType;
+  chartData: ChartData<ChartType>;
+  chartOptions?: ChartOptions<ChartType>;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
   }),
 });
 
-// Merge default options with user-provided options safely
+// Merge options safely with ChartType parameter
 const mergedOptions = computed<ChartOptions<ChartType>>(() => ({
   responsive: true,
   maintainAspectRatio: false,
@@ -29,10 +29,11 @@ const mergedOptions = computed<ChartOptions<ChartType>>(() => ({
 
 <template>
   <div class="chart-wrapper">
+    <!-- Cast :data to ChartData<ChartType> directly -->
     <VueChart
       :key="props.type"
       :type="props.type"
-      :data="props.chartData as ChartData"
+      :data="props.chartData as ChartData<ChartType>"
       :options="mergedOptions"
     />
   </div>

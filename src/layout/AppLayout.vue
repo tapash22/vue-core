@@ -5,7 +5,7 @@ import { activityChartData, defaultChartOptions } from '@/data/chartData.ts';
 import { headers } from '@/data/index.ts';
 import { useSalesStore } from '@/stores/salesStore';
 import { TableItem } from '@/types/table';
-import { ChartType } from 'chart.js';
+import type { ChartData, ChartType } from 'chart.js';
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import AppMainAppbar from './AppMainAppbar.vue';
 import AppMainContainer from './AppMainContainer.vue';
@@ -129,7 +129,7 @@ onMounted(() => {
       <div class="chart-box">
         <app-base-chart
           :type="currentChartType"
-          :chart-data="activityChartData"
+          :chart-data="activityChartData as unknown as ChartData<ChartType>"
           :chart-options="defaultChartOptions"
         />
       </div>
