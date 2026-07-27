@@ -7,8 +7,8 @@ import { Chart as VueChart } from 'vue-chartjs';
 // 1. Define Props with TypeScript Types
 interface Props {
   type?: ChartType; // 'bar' | 'line' | 'pie' | 'doughnut' | 'radar' | 'polarArea' | 'bubble' | 'scatter'
-  chartData: ChartData<ChartType>;
-  chartOptions?: ChartOptions<ChartType>;
+  chartData: unknown;
+  chartOptions?: ChartOptions;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -32,7 +32,7 @@ const mergedOptions = computed<ChartOptions<ChartType>>(() => ({
     <VueChart
       :key="props.type"
       :type="props.type"
-      :data="props.chartData"
+      :data="props.chartData as ChartData"
       :options="mergedOptions"
     />
   </div>
