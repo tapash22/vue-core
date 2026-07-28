@@ -12,7 +12,6 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       vue(),
-      // vuetify({ autoImport: true }), // Crucial for automatic Vuetify treeshaking
       vuetify({
         autoImport: true,
         styles: {
