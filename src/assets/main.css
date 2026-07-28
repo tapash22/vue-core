@@ -24,7 +24,25 @@ body,
     color var(--theme-transition);
 }
 
-.v-theme--light *,
+
+/* ✅ SAFE TARGETED THEME TRANSITION */
+html,
+body,
+#app,
+.v-application,
+.v-main,
+.v-card,
+.v-sheet,
+.v-navigation-drawer,
+.v-app-bar {
+  transition:
+    background-color var(--theme-transition),
+    color var(--theme-transition),
+    border-color var(--theme-transition),
+    box-shadow var(--theme-transition);
+}
+
+/* .v-theme--light *,
 .v-theme--dark * {
   transition:
     background-color var(--theme-transition),
@@ -33,7 +51,7 @@ body,
     box-shadow var(--theme-transition),
     fill var(--theme-transition),
     stroke var(--theme-transition);
-}
+} */
 
 body {
   color: rgb(var(--v-theme-text));
@@ -226,7 +244,7 @@ label {
   box-shadow: 0 10px 24px rgba(0, 0, 0, .10);
 }
 
-.v-btn {
+.v-btn:not(:disabled):not(.v-btn--disabled) {
   border-radius: 10px;
   transition:
     background-color .3s ease,
@@ -234,7 +252,7 @@ label {
     transform .2s ease;
 }
 
-.v-btn:hover {
+.v-btn:not(:disabled):not(.v-btn--disabled):hover {
   transform: translateY(-1px);
 }
 

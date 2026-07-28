@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useDefaults } from 'vuetify';
 import type { VForm } from 'vuetify/components/VForm';
+import AppButton from '../button/AppButton.vue';
 import AppDialog from '../dialogs/AppDialog.vue';
 
 withDefaults(
@@ -36,7 +37,7 @@ const formRef = ref<VForm | null>(null);
 const resetForm = () => {
   if (formRef.value) {
     formRef.value.reset();
-    formRef.value.resetValidation(); // 👈 Clears dirty blur states & error messages
+    formRef.value.resetValidation(); // Clears dirty blur states & error messages
   }
 };
 
@@ -77,7 +78,7 @@ useDefaults();
       <slot name="activator" v-bind="slotProps" />
     </template>
 
-    <!-- Master Form Container featuring your layout style -->
+    <!-- Master Form Container -->
     <v-form
       ref="formRef"
       :validate-on="validateOn"
@@ -85,10 +86,10 @@ useDefaults();
       @submit.prevent
       v-slot="formSlotProps"
     >
-      <!-- Optional Subtitle matching your second snippet's layout -->
+      <!-- Optional Subtitle -->
       <div v-if="subTitle" class="text-subtitle-1 mb-2">{{ subTitle }}</div>
 
-      <!-- Main Fields Slot (passes Vuetify form slot props if needed) -->
+      <!-- Main Fields Slot -->
       <div class="mt-2 w-100">
         <slot v-bind="formSlotProps" />
       </div>
@@ -96,22 +97,22 @@ useDefaults();
 
     <!-- Footer Action Controls -->
     <template #footer-controls="{ closeDialog }">
-      <v-btn
+      <!-- Cancel Button -->
+      <AppButton
         variant="text"
-        color="grey-darken-1"
+        color="grey-lighten-1"
+        :title="cancelText"
         @click="handleCancel(closeDialog)"
-      >
-        {{ cancelText }}
-      </v-btn>
+      />
 
-      <v-btn
+      <!-- Submit Button -->
+      <AppButton
         color="primary"
-        variant="elevated"
+        variant="flat"
+        :title="submitText"
         :disabled="disableSubmit"
         @click="handleSubmit(closeDialog)"
-      >
-        {{ submitText }}
-      </v-btn>
+      />
     </template>
   </AppDialog>
 </template>

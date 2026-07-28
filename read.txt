@@ -172,3 +172,21 @@ Here is the breakdown of how every script in your `package.json` works and how t
                                    ├── run-p (Parallel)
                                    ├──► npm run type-check (vue-tsc)
                                    └──► npm run build-only (vite build)
+
+
+
+
+multiple button format example:
+
+  <!-- using multiple button format for using this component use 
+   
+                Uses your VPrimaryAddBtn alias defaults (Primary color + plus icon) 
+            <AppButton component="v-primary-add-btn" title="Add User" />
+
+            Uses your VPrimaryTextLink alias defaults
+            <AppButton component="v-primary-text-link" title="Learn More" />
+
+            Standard button with preicon
+            <AppButton title="Download CSV" preicon="mdi-download" color="success" />
+
+using multiple button format for using this component use -->
