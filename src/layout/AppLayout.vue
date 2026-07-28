@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AppButton from '@/components/button/AppButton.vue';
 import AppBaseChart from '@/components/chart/AppBaseChart.vue';
 import AppFormDialog from '@/components/forms/AppFormDialog.vue';
 import AppTable, { SelectOption } from '@/components/tables/AppTable.vue';
@@ -9,6 +10,7 @@ import { useSalesStore } from '@/stores/salesStore';
 import { TableItem } from '@/types/table';
 import type { ChartData, ChartType } from 'chart.js';
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
+import IconPlus from '~icons/mdi/plus';
 import AppMainAppbar from './AppMainAppbar.vue';
 import AppMainContainer from './AppMainContainer.vue';
 import AppSidebar from './AppSidebar.vue';
@@ -136,54 +138,56 @@ onMounted(() => {
       color="secondary"
       class="mb-4"
     />
-    <div>
-      <app-form-dialog
-        v-model="isDialogOpen"
-        title="Create New User"
-        sub-title="Fill out user details below"
-        size="sm"
-        submit-text="Save User"
-        cancel-text="Cancel"
-        @submit="handleFormSubmit"
-      >
-        <!-- 1. Activator Slot: Button that opens the dialog automatically -->
-        <template #activator="{ props }">
-          <v-btn v-bind="props" color="primary" prepend-icon="mdi-account-plus">
-            Add User
-          </v-btn>
-        </template>
+    <AppFormDialog
+      v-model="isDialogOpen"
+      title="Create New User"
+      sub-title="Fill out user details below"
+      size="sm"
+      submit-text="Save User"
+      cancel-text="Cancel"
+      validate-on="submit"
+      @submit="handleFormSubmit"
+    >
+      <!-- Activator Slot -->
+      <template #activator="{ props }">
+        <app-button
+          v-bind="props"
+          title="Add User"
+          :preicon="IconPlus"
+          variant="tonal"
+        />
+      </template>
 
-        <!-- 2. Form Content: Passed into default slot -->
-        <div class="d-flex flex-column ga-3">
-          <v-text-field
-            v-model="formData.name"
-            label="Full Name"
-            variant="outlined"
-            density="comfortable"
-            :rules="[required]"
-          />
+      <!-- Form Fields Slot -->
+      <div class="d-flex flex-column ga-3">
+        <v-text-field
+          v-model="formData.name"
+          label="Full Name"
+          variant="outlined"
+          density="comfortable"
+          :rules="[required]"
+        />
 
-          <v-text-field
-            v-model.number="formData.age"
-            label="Age"
-            type="number"
-            variant="outlined"
-            density="comfortable"
-            :rules="[required]"
-          />
+        <v-text-field
+          v-model.number="formData.age"
+          label="Age"
+          type="number"
+          variant="outlined"
+          density="comfortable"
+          :rules="[required]"
+        />
 
-          <v-text-field
-            v-model.number="formData.salary"
-            label="Salary"
-            type="number"
-            prefix="$"
-            variant="outlined"
-            density="comfortable"
-            :rules="[required]"
-          />
-        </div>
-      </app-form-dialog>
-    </div>
+        <v-text-field
+          v-model.number="formData.salary"
+          label="Salary"
+          type="number"
+          prefix="$"
+          variant="outlined"
+          density="comfortable"
+          :rules="[required]"
+        />
+      </div>
+    </AppFormDialog>
     <div class="chart-container">
       <h2>Activity Overview</h2>
 
