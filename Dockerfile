@@ -1,4 +1,4 @@
-# Stage 1: Build application
+# Build Stage
 FROM node:22-alpine AS builder
 
 WORKDIR /app
@@ -9,10 +9,10 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-# Stage 2: Serve application with lightweight Nginx
+# Production Stage (Nginx)
 FROM nginx:alpine
 
-# Copy custom build output (adjust /app/dist if your framework uses /app/build)
+# Copy static output to Nginx (adjust /app/dist if your build output is /app/build)
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 EXPOSE 80
