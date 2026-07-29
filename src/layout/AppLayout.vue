@@ -150,12 +150,7 @@ onMounted(() => {
     >
       <!-- Activator Slot -->
       <template #activator="{ props }">
-        <app-button
-          v-bind="props"
-          title="Add User"
-          :preicon="IconPlus"
-          variant="tonal"
-        />
+        <AppButton v-bind="props" title="Add User" :preicon="IconPlus" />
       </template>
 
       <!-- Form Fields Slot -->
