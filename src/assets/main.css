@@ -10,6 +10,8 @@
   --transition-slow: .35s ease;
   --radius: 12px;
   --theme-transition: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* --v-theme-button: 59, 10, 246;
+  --v-theme-buttonText: 255, 255, 255; */
 }
 
 html,
@@ -131,6 +133,11 @@ label {
   transition: width .3s cubic-bezier(.4, 0, .2, 1) !important;
   box-shadow: 2px 2px 5px gray;
 }
+
+/* .custom-app-btn {
+  background: rgb(var(--v-theme-button));
+  color: rgb(var(--v-theme-buttonText));
+} */
 
 .drawer-header {
   display: flex;

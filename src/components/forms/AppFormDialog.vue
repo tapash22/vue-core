@@ -99,15 +99,12 @@ useDefaults();
     <template #footer-controls="{ closeDialog }">
       <!-- Cancel Button -->
       <AppButton
-        variant="text"
-        color="grey-lighten-1"
+        color="primary"
         :title="cancelText"
         @click="handleCancel(closeDialog)"
       />
-
-      <!-- Submit Button -->
+      <!-- Uses defaults (color="button" textColor="buttonText") -->
       <AppButton
-        color="primary"
         variant="flat"
         :title="submitText"
         :disabled="disableSubmit"
