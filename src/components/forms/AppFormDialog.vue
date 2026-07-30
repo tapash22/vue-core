@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, useSlots } from 'vue';
 import { useDefaults } from 'vuetify';
 import type { VForm } from 'vuetify/components/VForm';
 import AppButton from '../button/AppButton.vue';
 import AppDialog from '../dialogs/AppDialog.vue';
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     title: string;
     subTitle?: string;
@@ -15,6 +15,8 @@ withDefaults(
     disableClose?: boolean;
     disableSubmit?: boolean;
     validateOn?: VForm['validate-on'];
+    rows?: number;
+    cols?: number;
   }>(),
   {
     size: 'sm',
@@ -23,6 +25,8 @@ withDefaults(
     disableClose: false,
     disableSubmit: false,
     validateOn: 'blur lazy',
+    rows: 1,
+    cols: 1,
   }
 );
 
@@ -30,14 +34,28 @@ const emit = defineEmits<{
   (e: 'submit', closeDialog: () => void): void;
 }>();
 
+const slots = useSlots();
 const isDialogOpen = defineModel<boolean>({ required: false, default: false });
 const formRef = ref<VForm | null>(null);
+
+// Calculate sequence index for smooth row animation staggering
+const getAnimationIndex = (currentRow: number) => {
+  let activeRowCount = 0;
+  for (let r = 1; r <= currentRow; r++) {
+    const hasFull = !!slots[`field-${r}-full`];
+    const hasCols = Array.from({ length: props.cols }, (_, i) => i + 1).some(
+      (c) => !!slots[`field-${r}-${c}`]
+    );
+    if (hasFull || hasCols) activeRowCount++;
+  }
+  return activeRowCount;
+};
 
 // Completely reset form values and clear validation/blur errors
 const resetForm = () => {
   if (formRef.value) {
     formRef.value.reset();
-    formRef.value.resetValidation(); // Clears dirty blur states & error messages
+    formRef.value.resetValidation();
   }
 };
 
@@ -89,9 +107,36 @@ useDefaults();
       <!-- Optional Subtitle -->
       <div v-if="subTitle" class="text-subtitle-1 mb-2">{{ subTitle }}</div>
 
-      <!-- Main Fields Slot -->
-      <div class="mt-2 w-100">
+      <!-- Main Fields Container (Dynamic Grid) -->
+      <div class="my-2 w-100">
+        <!-- Default slot fallback if custom dynamic slots are not used -->
         <slot v-bind="formSlotProps" />
+
+        <!-- Dynamic Grid Layout -->
+        <template v-for="row in rows" :key="`form-modal-row-${row}`">
+          <v-row
+            v-if="
+              $slots[`field-${row}-full`] ||
+              Array.from({ length: cols }, (_, i) => i + 1).some(
+                (col) => $slots[`field-${row}-${col}`]
+              )
+            "
+            class="py-2"
+            :style="{ animationDelay: `${getAnimationIndex(row) * 60}ms` }"
+          >
+            <!-- Full Row Slot -->
+            <v-col v-if="$slots[`field-${row}-full`]" cols="12">
+              <slot :name="`field-${row}-full`" v-bind="formSlotProps" />
+            </v-col>
+
+            <!-- Column Grid Slots -->
+            <template v-else v-for="col in cols" :key="`form-modal-col-${col}`">
+              <v-col v-if="$slots[`field-${row}-${col}`]">
+                <slot :name="`field-${row}-${col}`" v-bind="formSlotProps" />
+              </v-col>
+            </template>
+          </v-row>
+        </template>
       </div>
     </v-form>
 
