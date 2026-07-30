@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AppButton from '@/components/button/AppButton.vue';
 import { useAppTheme } from '@/composables/useAppTheme';
 import IconMenuBar from '~icons/mdi/menu';
 import IconNight from '~icons/mdi/moon-waning-crescent';
@@ -57,20 +58,31 @@ const showToast = () => {
         >
           Show Toast
         </v-btn>
-
-        <v-btn icon variant="text" @click="toggleTheme" class="theme-button">
+        <AppButton variant="outlined" color="transparent" @click="toggleTheme">
           <Transition name="theme-icon" mode="out-in">
             <component
               :is="isDark ? IconSunny : IconNight"
               :key="String(isDark)"
-              class="theme-icon"
+              :class="isDark ? 'text-amber-lighten-1' : 'text-indigo-darken-2'"
+              class="theme-button"
             />
           </Transition>
 
           <v-tooltip activator="parent">
             {{ isDark ? 'Switch to Light' : 'Switch to Dark' }}
           </v-tooltip>
-        </v-btn>
+        </AppButton>
+
+        <!-- <AppButton
+          :icon="isDark ? IconSunny : IconNight"
+          variant="outlined"
+          class="theme-button"
+          @click="toggleTheme"
+        >
+          <v-tooltip activator="parent">
+            {{ isDark ? 'Switch to Light' : 'Switch to Dark' }}
+          </v-tooltip>
+        </AppButton> -->
       </div>
     </template>
   </v-app-bar>
