@@ -398,6 +398,24 @@ svg {
   background: rgb(var(--v-theme-scrollbarThumbHover));
 }
 
+/* input field label padding */
+/* Move the resting label inward from the border */
+.v-text-field,
+.v-file-input,
+.v-phone-input {
+  &.required {
+    .v-label {
+      &::after {
+        content: '*';
+        color: red;
+      }
+    }
+  }
+}
+
+/* input field label padding end */
+
+
 /* make smooth transition */
 
 ::view-transition-old(root),

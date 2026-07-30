@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useFormSlots } from '@/composables/useFormSlots.ts';
 import { required } from '@/plugins/validation-rules.ts';
 import { ref } from 'vue';
 import IconPlus from '~icons/mdi/plus';
@@ -10,6 +11,8 @@ interface UserFormData {
   age: number | null;
   salary: number | null;
 }
+
+const { first, second, third } = useFormSlots();
 
 const openDialog = defineModel({ required: false, default: false });
 
@@ -38,8 +41,10 @@ const handleFormSubmit = (closeDone: () => void) => {
   <AppFormDialog
     v-model="openDialog"
     title="Create New User"
-    sub-title="Fill out user details below"
+    sub-title=""
     size="sm"
+    :rows="2"
+    :cols="2"
     submit-text="Save User"
     cancel-text="Cancel"
     validate-on="submit"
@@ -49,17 +54,19 @@ const handleFormSubmit = (closeDone: () => void) => {
     <template #activator="{ props }">
       <AppButton v-bind="props" title="Add User" :preicon="IconPlus" />
     </template>
-
-    <!-- Form Fields Slot -->
-    <div class="d-flex flex-column ga-3">
+    <!-- First Slot (Row 1, Col 1) -->
+    <template #[first]>
       <v-text-field
         v-model="formData.name"
         label="Full Name"
         variant="outlined"
         density="comfortable"
         :rules="[required]"
+        class="required"
       />
-
+    </template>
+    <!-- Second Slot (Row 1, Col 2) -->
+    <template #[second]>
       <v-text-field
         v-model.number="formData.age"
         label="Age"
@@ -68,7 +75,10 @@ const handleFormSubmit = (closeDone: () => void) => {
         density="comfortable"
         :rules="[required]"
       />
+    </template>
 
+    <!-- Third Slot (Row 2, Col 1) -->
+    <template #[third]>
       <v-text-field
         v-model.number="formData.salary"
         label="Salary"
@@ -78,6 +88,6 @@ const handleFormSubmit = (closeDone: () => void) => {
         density="comfortable"
         :rules="[required]"
       />
-    </div>
+    </template>
   </AppFormDialog>
 </template>
