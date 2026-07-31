@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AppButton from '@/components/button/AppButton.vue';
 import { useAppTheme } from '@/composables/useAppTheme';
 import IconMenuBar from '~icons/mdi/menu';
 import IconNight from '~icons/mdi/moon-waning-crescent';
