@@ -13,7 +13,7 @@ export const defaults = {
     class: ['font-weight-black', 'text-capitalize', 'text-subtitle-1'],
     style: {
       opacity: 1,
-      display: 'inline',
+      display: 'compact',
       width: 'auto',
       height: 'auto',
     },

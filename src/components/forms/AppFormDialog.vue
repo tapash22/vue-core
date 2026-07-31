@@ -150,6 +150,7 @@ useDefaults();
       />
       <!-- Uses defaults (color="button" textColor="buttonText") -->
       <AppButton
+        rounded="md"
         variant="flat"
         :title="submitText"
         :disabled="disableSubmit"
