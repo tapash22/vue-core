@@ -57,20 +57,27 @@ const showToast = () => {
         >
           Show Toast
         </v-btn>
+        <div class="d-flex justify-center align-middle pa-2">
+          <AppButton
+            variant="tonal"
+            rounded="xl"
+            @click="toggleTheme"
+            :color="isDark ? 'info' : 'scrollbarThumbHover'"
+            :text-color="isDark ? 'cardShadow' : 'buttonText'"
+            class="border-2 border-primary"
+          >
+            <Transition name="theme-icon" mode="out-in">
+              <component
+                :is="isDark ? IconNight : IconSunny"
+                :key="String(isDark)"
+              />
+            </Transition>
 
-        <v-btn icon variant="text" @click="toggleTheme" class="theme-button">
-          <Transition name="theme-icon" mode="out-in">
-            <component
-              :is="isDark ? IconSunny : IconNight"
-              :key="String(isDark)"
-              class="theme-icon"
-            />
-          </Transition>
-
-          <v-tooltip activator="parent">
-            {{ isDark ? 'Switch to Light' : 'Switch to Dark' }}
-          </v-tooltip>
-        </v-btn>
+            <v-tooltip activator="parent">
+              {{ isDark ? 'Switch to Light' : 'Switch to Dark' }}
+            </v-tooltip>
+          </AppButton>
+        </div>
       </div>
     </template>
   </v-app-bar>
