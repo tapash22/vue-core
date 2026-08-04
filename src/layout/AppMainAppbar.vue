@@ -79,17 +79,6 @@ const showToast = () => {
             </v-tooltip>
           </AppButton>
         </div>
-
-        <!-- <AppButton
-          :icon="isDark ? IconSunny : IconNight"
-          variant="outlined"
-          class="theme-button"
-          @click="toggleTheme"
-        >
-          <v-tooltip activator="parent">
-            {{ isDark ? 'Switch to Light' : 'Switch to Dark' }}
-          </v-tooltip>
-        </AppButton> -->
       </div>
     </template>
   </v-app-bar>

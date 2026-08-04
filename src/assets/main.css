@@ -414,11 +414,13 @@ svg {
       &::after {
         content: '*';
         color: red;
+        margin-left: 10px;
       }
     }
   }
 }
 
+<<<<<<< HEAD
 /* Targets the label inside text fields using the custom class */
 /* Unfocused state with left margin */
 .custom-text-field .v-field:not(.v-field--focused) .v-label {
@@ -439,6 +441,20 @@ svg {
 }
 
 /* input field label padding end */
+=======
+/* handle for label padding when show */
+.v-label.v-field-label {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* handle for label active and focus*/
+.v-field--focused .v-label.v-field-label,
+.v-field--active .v-label.v-field-label {
+  padding-left: 0;
+  padding-right: 0;
+}
+>>>>>>> main
 
 
 /* make smooth transition */
